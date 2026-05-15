@@ -5,6 +5,8 @@ import './Sucursal.css'
 import 'navium-ui-lib/dist/navium-ui-lib.cjs.css'
 import { CalendarCheck2, FastForward, ClipboardCheck, ChartColumn, Fingerprint, Plus, Ban } from 'lucide-react'
 
+import logo from '/src/assets/navium-v1.png'
+
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
 const ESTADOS = ['CREADO', 'EN_TRANSITO', 'EN_PUERTA', 'DENTRO_DEL_PUERTO', 'FINALIZADO', 'CANCELADO']
@@ -38,6 +40,58 @@ const fmtFecha = (dt) => {
     day: '2-digit', month: '2-digit', year: 'numeric',
     hour: '2-digit', minute: '2-digit'
   })
+}
+
+function Footer({ logo, moduleLinks }) {
+  const links = moduleLinks?.length ? moduleLinks : [
+    { label: 'Dashboard', href: '/dashboard' },
+    { label: 'Reportes', href: '/reports' },
+    { label: 'Configuración', href: '/settings' },
+  ]
+
+  return (
+    <footer className="app-footer">
+      <div className="footer-top">
+        <div className="footer-brand">
+          <img src={logo} alt="Navium logo" className="footer-logo" />
+          <div className="footer-brand-text">
+            <span className="footer-title">NAVIUM</span>
+            <span className="footer-subtitle">Plataforma integral de gestión portuaria</span>
+          </div>
+        </div>
+
+        <div className="footer-grid">
+          <div className="footer-column">
+            <span className="footer-column-title">ENLACES DEL MÓDULO</span>
+            <div className="footer-nav">
+              {links.map((link) => (
+                <a key={link.label} href={link.href}>{link.label}</a>
+              ))}
+            </div>
+          </div>
+
+          <div className="footer-column">
+            <span className="footer-column-title">LEGAL</span>
+            <div className="footer-nav">
+              <a href="/terms">Términos y Condiciones</a>
+              <a href="/privacy">Política de privacidad</a>
+              <a href="/cookies">Política de Cookies</a>
+            </div>
+          </div>
+
+          <div className="footer-column">
+            <span className="footer-column-title">CONTACTO</span>
+            <div className="footer-contact">
+              <span>Email: <a href="mailto:soporte@navium.com">soporte@navium.com</a></span>
+              <span>Teléfono: +56 1234 56789</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="footer-bottom">2026 Navium. Todos los derechos reservados.</div>
+    </footer>
+  )
 }
 
 // ─── Pantalla de login ───────────────────────────────────────────────────────
@@ -91,8 +145,7 @@ function LoginScreen({ onLogin }) {
   return (
     <div className="login-screen">
       <div className="login-card">
-        <div className="login-icon">⚓</div>
-        <h1 className="login-title">NAVIUM</h1>
+        <img src={logo} alt="Navium logo" className="login-logo" />
         <p className="login-sub">Sucursal Virtual · Acceso Operadores</p>
 
         {/* ── Tabs login / registro ── */}
@@ -864,14 +917,12 @@ function Dashboard({ token, onLogout }) {
   const inicial = email.charAt(0).toUpperCase()
 
   return (
-    <div className="dashboard">
+    <>
+      <div className="dashboard">
       <header className="dash-header">
         <div className="dash-brand">
-          <span className="dash-anchor">⚓</span>
-          <div>
-            <span className="dash-title">NAVIUM</span>
-            <span className="dash-sub">Sucursal Virtual</span>
-          </div>
+          <img src={logo} alt="Navium logo" className="dash-logo" />
+          <span className="dash-sub">Sucursal Virtual</span>
         </div>
        <div className="dash-header-right">
           <div className="user-info">
@@ -881,7 +932,7 @@ function Dashboard({ token, onLogout }) {
               <span className="user-rol">{rol.replace('ROL_', '')}</span>
             </div>
           </div>
-          <Button variant="ghost" size="sm" onClick={onLogout}>Cerrar sesión</Button>
+          <Button className="logout-btn" variant="ghost" size="sm" onClick={onLogout}>Cerrar sesión</Button>
         </div>
       </header>
 
@@ -910,6 +961,15 @@ function Dashboard({ token, onLogout }) {
         </main>
       </div>
     </div>
+    <Footer
+      logo={logo}
+      moduleLinks={[
+        { label: 'Dashboard', href: '/dashboard' },
+        { label: 'Reportes', href: '/reports' },
+        { label: 'Configuración', href: '/settings' },
+      ]}
+    />
+  </>
   )
 }
 

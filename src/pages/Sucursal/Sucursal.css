@@ -1,14 +1,14 @@
-/* ── Base dark theme ───────────────────────────────────────────────────── */
+/* ── Light theme navium-ui-lib ─────────────────────── */
 :root {
-  --bg-app:      #0d0f11;
-  --bg-card:     #13161a;
-  --bg-surface:  #1a1e24;
-  --bg-hover:    #21262e;
-  --border:      #2a3040;
+  --bg-app:      var(--color-gray-100);
+  --bg-card:     var(--color-white);
+  --bg-surface:  var(--color-gray-50);
+  --bg-hover:    var(--color-gray-200);
+  --border:      var(--color-gray-200);
   --border-focus:#f2b40e44;
-  --text-primary:#e8eaf0;
-  --text-muted:  #7a8499;
-  --text-dim:    #4a5568;
+  --text-primary: var(--font-color-primary);
+  --text-muted:  var(--color-gray-500);
+  --text-dim:    var(--color-gray-400);
   --accent:      var(--color-primary);
   --accent-dim:  #f2b40e22;
 }
@@ -25,13 +25,13 @@ body {
 /* ── Override botón ghost ──────────────────────────────────────────────── */
 .btn--ghost,
 button[class*="ghost"] {
-  color: #f2b40e !important;
+  color: var(--color-secondary) !important;
   border: 1px solid var(--border) !important;
 }
 
 .btn--ghost:hover,
 button[class*="ghost"]:hover {
-  color: #e8eaf0 !important;
+  color: var(--font-color-primary) !important;
   background: var(--bg-hover) !important;
 }
 
@@ -42,17 +42,16 @@ button[class*="ghost"]:hover {
   align-items: center;
   justify-content: center;
   background-image:
-  radial-gradient(ellipse 80% 50% at 50% -10%, #f2b40e18 0%, transparent 60%),
-  url('/src/assets/navium-fondo.png');
+    radial-gradient(ellipse 80% 50% at 50% -10%, #f2b40e18 0%, transparent 60%),
+    url('/src/assets/navium-fondo.png');
   background-size: cover;
   background-position: center;
-  background-repeat: norepeat;
+  background-repeat: no-repeat;
   padding: 2rem;
 }
 
-
 .login-card {
-  background: var(--bg-card);
+  background: var(--color-white);
   border: 1px solid var(--border);
   border-radius: 1.25rem;
   padding: 3rem 2.5rem;
@@ -62,19 +61,20 @@ button[class*="ghost"]:hover {
   flex-direction: column;
   align-items: center;
   gap: 1.25rem;
-  box-shadow: 0 32px 64px #00000060;
+  box-shadow: var(--shadow-xl);
 }
 
-.login-icon {
-  font-size: 2.8rem;
-  line-height: 1;
+.login-logo {
+  height: 2.8rem;
+  width: auto;
+  display: block;
   filter: drop-shadow(0 0 16px #f2b40e88);
 }
 
 .login-title {
   font-family: var(--font-family-accent);
   font-size: 2.2rem;
-  color: var(--accent);
+  color: var(--color-secondary);
   letter-spacing: 0.12em;
   text-align: center;
 }
@@ -108,12 +108,14 @@ button[class*="ghost"]:hover {
   align-items: center;
   justify-content: space-between;
   padding: 1rem 2rem;
-  background: var(--bg-card);
-  border-bottom: 1px solid var(--border);
+  background: var(--color-secondary);
+  border-bottom: 1px solid var(--color-secondary-active);
   position: sticky;
   top: 0;
   z-index: 100;
+  box-shadow: var(--shadow-md);
 }
+
 .user-info {
   display: flex;
   align-items: center;
@@ -125,13 +127,24 @@ button[class*="ghost"]:hover {
   height: 2.2rem;
   border-radius: 50%;
   background: var(--accent);
-  color: #000;
+  color: #fff;
   font-weight: 700;
   font-size: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-family-accent);
+}
+
+.logout-btn {
+  background: var(--color-white) !important;
+  color: #000 !important;
+  border-color: var(--border) !important;
+}
+
+.logout-btn:hover {
+  background: var(--bg-hover) !important;
+  color: #000 !important;
 }
 
 .user-details {
@@ -142,13 +155,13 @@ button[class*="ghost"]:hover {
 
 .user-email {
   font-size: var(--font-size-xs);
-  color: var(--text-primary);
+  color: var(--color-gray-200);
   font-family: var(--font-family-sans);
 }
 
 .user-rol {
   font-size: 0.65rem;
-  color: var(--text-muted);
+  color: var(--color-gray-400);
   font-family: var(--font-family-sans);
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -160,9 +173,10 @@ button[class*="ghost"]:hover {
   gap: 0.875rem;
 }
 
-.dash-anchor {
-  font-size: 1.75rem;
-  filter: drop-shadow(0 0 8px #f2b40e66);
+.dash-logo {
+  height: 1.4rem;
+  width: auto;
+  display: block;
 }
 
 .dash-title {
@@ -177,10 +191,9 @@ button[class*="ghost"]:hover {
 .dash-sub {
   display: block;
   font-size: var(--font-size-xs);
-  color: var(--text-muted);
+  color: var(--color-gray-400);
   letter-spacing: 0.04em;
   font-family: var(--font-family-sans);
-  
 }
 
 .dash-header-right {
@@ -203,17 +216,23 @@ button[class*="ghost"]:hover {
 .dash-body {
   display: grid;
   grid-template-columns: 220px 1fr;
+  gap: 1.5rem;
   min-height: 0;
+}
+
+.dash-main {
+  padding: 2rem 2rem 2rem 1.5rem;
 }
 
 /* ── Sidebar ───────────────────────────────────────────────────────────── */
 .dash-sidebar {
-  background: var(--bg-card);
+  background: var(--color-white);
   border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   padding: 1.25rem 0.75rem;
   gap: 0.25rem;
+  box-shadow: var(--shadow-sm);
 }
 
 .tab-btn {
@@ -238,18 +257,113 @@ button[class*="ghost"]:hover {
 
 .tab-btn--active {
   background: var(--accent-dim);
-  color: var(--accent);
+  color: var(--color-secondary);
+  font-weight: var(--font-weight-semibold);
 }
 
-/* ── Main content ──────────────────────────────────────────────────────── */
-.dash-main {
+/* ── Footer ────────────────────────────────────────────────────────────── */
+.app-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--color-white);
+  border-top: 1px solid var(--border);
   padding: 2rem;
-  overflow-y: auto;
+  box-shadow: none;
 }
 
-.tab-content {
-  animation: fadeIn 0.18s ease;
-  max-width: 1000px;
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  min-width: 250px;
+}
+
+.footer-logo {
+  width: 96px;
+  height: auto;
+  border-radius: 0.75rem;
+  object-fit: contain;
+}
+
+.footer-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.footer-title {
+  display: block;
+  font-family: var(--font-family-accent);
+  font-size: 1.3rem;
+  color: var(--text-primary);
+}
+
+.footer-subtitle {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  max-width: 280px;
+  line-height: 1.5;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.footer-column-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+}
+
+.footer-nav,
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.footer-nav a,
+.footer-contact span,
+.footer-contact a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.footer-nav a:hover,
+.footer-contact a:hover {
+  color: var(--text-primary);
+}
+
+.footer-bottom {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
 }
 
 @keyframes fadeIn {
@@ -288,8 +402,8 @@ button[class*="ghost"]:hover {
 .field-select,
 .field-textarea {
   width: 100%;
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-300);
   border-radius: var(--border-radius-md);
   color: var(--text-primary);
   font-family: var(--font-family-sans);
@@ -297,6 +411,7 @@ button[class*="ghost"]:hover {
   padding: 0.625rem 0.875rem;
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
   outline: none;
+  appearance: none;
   -webkit-appearance: none;
 }
 
@@ -313,7 +428,7 @@ button[class*="ghost"]:hover {
 }
 
 .field-select option {
-  background: var(--bg-surface);
+  background: var(--color-white);
   color: var(--text-primary);
 }
 
@@ -364,10 +479,10 @@ button[class*="ghost"]:hover {
   margin-bottom: 1.25rem;
 }
 
-.alert--error   { background: #ef444415; border-color: #ef444440; color: #fca5a5; }
-.alert--success { background: #10b98115; border-color: #10b98140; color: #6ee7b7; }
-.alert--info    { background: #1f51ff15; border-color: #1f51ff40; color: #93c5fd; }
-.alert--warning { background: #f59e0b15; border-color: #f59e0b40; color: #fcd34d; }
+.alert--error   { background: #fef2f2; border-color: #fecaca; color: #b91c1c; }
+.alert--success { background: #f0fdf4; border-color: #bbf7d0; color: #15803d; }
+.alert--info    { background: #eff6ff; border-color: #bfdbfe; color: #1d4ed8; }
+.alert--warning { background: #fffbeb; border-color: #fde68a; color: #b45309; }
 
 /* ── Confirm row ───────────────────────────────────────────────────────── */
 .confirm-row {
@@ -375,15 +490,15 @@ button[class*="ghost"]:hover {
   align-items: center;
   gap: 0.75rem;
   flex-wrap: wrap;
-  background: #ef444410;
-  border: 1px solid #ef444430;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
   border-radius: var(--border-radius-md);
   padding: 0.625rem 1rem;
 }
 
 .confirm-label {
   font-size: var(--font-size-sm);
-  color: #fca5a5;
+  color: #b91c1c;
   font-family: var(--font-family-sans);
 }
 
@@ -404,6 +519,7 @@ button[class*="ghost"]:hover {
   overflow-x: auto;
   border-radius: var(--border-radius-lg);
   border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
 }
 
 .data-table {
@@ -414,7 +530,7 @@ button[class*="ghost"]:hover {
 }
 
 .data-table thead tr {
-  background: var(--bg-surface);
+  background: var(--color-gray-50);
   border-bottom: 1px solid var(--border);
 }
 
@@ -430,6 +546,7 @@ button[class*="ghost"]:hover {
 }
 
 .data-table tbody tr {
+  background: var(--color-white);
   border-bottom: 1px solid var(--border);
   transition: background var(--transition-fast);
 }
@@ -439,7 +556,7 @@ button[class*="ghost"]:hover {
 }
 
 .data-table tbody tr:hover {
-  background: var(--bg-hover);
+  background: var(--color-gray-50);
 }
 
 .data-table td {
@@ -474,12 +591,12 @@ button[class*="ghost"]:hover {
   white-space: nowrap;
 }
 
-.badge--primary { background: #f2b40e18; border-color: #f2b40e44; color: #f2b40e; }
-.badge--success { background: #10b98118; border-color: #10b98144; color: #34d399; }
-.badge--warning { background: #f59e0b18; border-color: #f59e0b44; color: #fbbf24; }
-.badge--error   { background: #ef444418; border-color: #ef444444; color: #f87171; }
-.badge--info    { background: #1f51ff18; border-color: #1f51ff44; color: #60a5fa; }
-.badge--ghost   { background: #6b728018; border-color: #6b728044; color: #9ca3af; }
+.badge--primary { background: #fef3c7; border-color: #fde68a; color: #92400e; }
+.badge--success { background: #f0fdf4; border-color: #bbf7d0; color: #15803d; }
+.badge--warning { background: #fffbeb; border-color: #fde68a; color: #b45309; }
+.badge--error   { background: #fef2f2; border-color: #fecaca; color: #b91c1c; }
+.badge--info    { background: #eff6ff; border-color: #bfdbfe; color: #1d4ed8; }
+.badge--ghost   { background: var(--color-gray-100); border-color: var(--color-gray-300); color: var(--color-gray-600); }
 
 /* ── Responsive ────────────────────────────────────────────────────────── */
 @media (max-width: 640px) {
@@ -516,7 +633,7 @@ button[class*="ghost"]:hover {
 }
 
 .field-error {
-  color: #f87171;
+  color: var(--color-error);
   font-size: var(--font-size-xs);
   font-family: var(--font-family-sans);
   margin-top: 0.3rem;
@@ -530,17 +647,18 @@ button[class*="ghost"]:hover {
 }
 
 .info-card {
-  background: var(--bg-card);
+  background: var(--color-white);
   border: 1px solid var(--border);
   border-radius: var(--border-radius-lg);
   padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
 }
 
 .info-card__title {
   font-family: var(--font-family-title);
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-semibold);
-  color: var(--accent);
+  color: var(--color-secondary);
   margin-bottom: 1.25rem;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--border);
@@ -579,13 +697,13 @@ button[class*="ghost"]:hover {
   .consulta-completa-grid {
     grid-template-columns: 1fr;
   }
-} 
+}
 
 /* ── Login tabs ────────────────────────────────────────────────────────── */
 .login-tabs {
   display: flex;
   width: 100%;
-  background: var(--bg-surface);
+  background: var(--color-gray-100);
   border-radius: var(--border-radius-md);
   padding: 0.25rem;
   gap: 0.25rem;
@@ -608,6 +726,8 @@ button[class*="ghost"]:hover {
 .login-tab:hover { color: var(--text-primary); }
 
 .login-tab--active {
-  background: var(--bg-card);
-  color: var(--accent);
+  background: var(--color-white);
+  color: var(--color-secondary);
+  font-weight: var(--font-weight-semibold);
+  box-shadow: var(--shadow-sm);
 }
