@@ -2,7 +2,7 @@
 
 Aplicación web de administración de agendamientos para sucursales de puerto, construida con React 19 y Vite.
 
-## 📌 Descripción
+##  Descripción
 
 Esta aplicación permite a operadores y personal de sucursal:
 
@@ -15,7 +15,7 @@ Esta aplicación permite a operadores y personal de sucursal:
 - Buscar agendamientos por RUT de chofer.
 - Ver camiones activos agendados para el día actual.
 
-## 🚀 Tecnologías
+##  Tecnologías
 
 - React 19
 - Vite
@@ -23,26 +23,26 @@ Esta aplicación permite a operadores y personal de sucursal:
 - lucide-react
 - ESLint
 
-## 📁 Estructura relevante
+##  Estructura relevante
 
 - `src/App.jsx` - Punto de entrada de la aplicación.
 - `src/main.jsx` - Renderiza el componente raíz.
 - `src/pages/Sucursal/Sucursal.jsx` - Lógica principal de UI y funcionalidades.
 - `src/services/agendamientoService.js` - Clientes HTTP para BFF y autenticación.
 
-## ⚙️ Requisitos
+##  Requisitos
 
 - Node.js 18 o superior
 - npm
 
-## 📦 Instalación
+##  Instalación
 
 ```bash
 cd sucursal-virtual
 npm install
 ```
 
-## 🧪 Uso en desarrollo
+##  Uso en desarrollo
 
 ```bash
 npm run dev
@@ -50,26 +50,26 @@ npm run dev
 
 Abre la URL indicada por Vite, normalmente `http://localhost:5173`.
 
-## 📦 Build de producción
+##  Build de producción
 
 ```bash
 npm run build
 ```
 
-## 📡 Vista previa de producción
+##  Vista previa de producción
 
 ```bash
 npm run preview
 ```
 
-## 🔧 Consideraciones importantes
+##  Consideraciones importantes
 
 - La aplicación consume un backend a través de `/api/bff`.
 - El servicio de autenticación utiliza `AUTH_URL` en `src/services/agendamientoService.js`.
 - Actualmente `AUTH_URL` está vacío y debe configurarse con la URL del servicio de autenticación.
 - Asegúrate de tener el backend/BFF funcionando y disponible para que las rutas de agendamiento y login funcionen correctamente.
 
-## 📝 Notas de implementación
+##  Notas de implementación
 
 - El usuario inicia sesión y recibe un token JWT que se usa en las llamadas protegidas.
 - La UI incluye pestañas para:
@@ -81,7 +81,7 @@ npm run preview
   - `Nuevo Agendamiento`
   - `Cancelar Agendamiento`
 
-## 💡 Sugerencias de mejora
+##  Sugerencias de mejora
 
 - Agregar un archivo `.env` para configurar `AUTH_URL` y `API_URL`.
 - Almacenar token en `localStorage` o `sessionStorage` para mantener la sesión.
