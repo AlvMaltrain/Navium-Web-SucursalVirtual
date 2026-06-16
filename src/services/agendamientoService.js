@@ -1,98 +1,90 @@
 const BFF_URL = '/api/bff';
 
-const getHeaders = (token) => ({
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`
-});
- 
-export const consultaRapida = async (patente, token) => {
+const verificarRespuesta = async (res) => { //Funcion que recibe respuesta (res) de un fetch y la revisa
+    if (res.status === 401) {
+        window.location.href = 'http://localhost:5170'; //Redirige al login central
+        throw new Error('Sesión expirada'); //Corta la ejecución para que el código que llamó no siga procesando una respuesta vacía
+    }
+    if (!res.ok) {
+        //Intenta leer el mensaje real que mandó el backend (error o message); si no, usa el status
+        const data = await res.json().catch(() => null);
+        const mensaje = data?.error ?? data?.message ?? `HTTP ${res.status}`;
+        throw new Error(mensaje);
+    }
+    return res; //Si todo está bien, devuelve la respuesta para seguir usandola
+}
+
+export const consultaRapida = async (patente) => {
     const res = await fetch(`${BFF_URL}/consulta-rapida/${patente}`, {
-        headers: getHeaders(token)
+        credentials: 'include'
     });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    await verificarRespuesta(res); //Usamos la nueva función para revisar la respuesta
     return res.json();
 };
- 
-export const listarPorEstado = async (estado, token) => {
+
+export const listarPorEstado = async (estado) => {
     const res = await fetch(`${BFF_URL}/agendamiento/estado/${estado}`, {
-        headers: getHeaders(token)
+        credentials: 'include'
     });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    await verificarRespuesta(res);
     return res.json();
 };
- 
-export const crearAgendamiento = async (datos, token) => {
+
+export const crearAgendamiento = async (datos) => {
     const res = await fetch(`${BFF_URL}/agendamiento`, {
         method: 'POST',
-        headers: getHeaders(token),
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify(datos)
     });
-    if (!res.ok){
-        const err = await res.json().catch(() => ({}))
-        throw new Error(err.error ?? `HTTP ${res.status}`)
-    }
+    await verificarRespuesta(res); //Si falla, lanza el mensaje real del backend
     return res.json();
 };
- 
-export const cancelarAgendamiento = async (id, token) => {
+
+export const cancelarAgendamiento = async (id) => {
     const res = await fetch(`${BFF_URL}/agendamiento/${id}/cancelar`, {
         method: 'PUT',
-        headers: getHeaders(token)
+        credentials: 'include'
     });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    await verificarRespuesta(res);
     return res.json();
 };
 
-export const consultaCompleta = async (patente, token) => {
+export const consultaCompleta = async (patente) => {
     const res = await fetch(`${BFF_URL}/consulta-completa/${patente}`, {
-        headers: getHeaders(token)
+        credentials: 'include'
     });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    await verificarRespuesta(res);
     return res.json();
 };
 
-export const buscarPorRutChofer = async (rut, token) => {
+export const buscarPorRutChofer = async (rut) => {
     const res = await fetch(`${BFF_URL}/agendamiento/rut/${rut}`, {
-        headers: getHeaders(token)
+        credentials: 'include'
     });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    await verificarRespuesta(res);
     return res.json();
 };
 
-export const listarPorFechas = async (inicio, fin, token) => {
+export const listarPorFechas = async (inicio, fin) => {
     const res = await fetch(`${BFF_URL}/agendamientos/fechas?inicio=${inicio}&fin=${fin}`, {
-        headers: getHeaders(token)
+        credentials: 'include'
     });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    await verificarRespuesta(res);
     return res.json();
 };
 
-//LOGIN / REGISTRO
-
-const AUTH_URL = ' ';
-
-export const login = async (email, password) => {
-    const res = await fetch(`${AUTH_URL}/api/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+export const getUsuarioActual = async () => {
+    const res = await fetch('/api/auth/me', {
+        credentials: 'include'
     });
-    if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error ?? `HTTP ${res.status}`);
-    }
-    return res.json(); // { token: "..." }
-};
-
-export const registrar = async (datos) => {
-    const res = await fetch(`${AUTH_URL}/api/usuarios`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(datos)
-    });
-    if (!res.ok) {
-        const text = await res.text();
-        throw new Error(text ?? `HTTP ${res.status}`);
-    }
+    await verificarRespuesta(res);
     return res.json();
 };
+
+export const logout = async () => { //Crea funcion logout para cerrar sesion, export para usarla en otros archivos, async porque hace una llamada de red(espera respuesta)
+    await fetch('/api/auth/logout', {  //Llama al backend / await pausa hasta que responda / La ruta pertenece el servicio Usuarios(vía proxy de Vite)
+        method: 'POST',  
+        credentials: 'include' //Envía la cookie httpOnly al servidor, sin esto el backend no sabría qué sesión cerrar.
+    })
+}

@@ -6,11 +6,11 @@ export default defineConfig({
   server: {
     proxy: {
       '/api/auth': {
-        target: 'http://localhost:8085',
+        target: 'http://localhost:8083',
         changeOrigin: true
       },
       '/api/usuarios': {
-        target: 'http://localhost:8085',
+        target: 'http://localhost:8083',
         changeOrigin: true
       },
       '/api/bff': {
