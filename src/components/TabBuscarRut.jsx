@@ -39,7 +39,7 @@ function TabBuscarRut() {
           onChange={(e) => setRut(e.target.value)}
           onKeyDown={handleKey}
         />
-        <Button variant="primary" onClick={buscar} disabled={cargando}>
+        <Button variant="primary" size="sm" onClick={buscar} disabled={cargando}>
           {cargando ? 'Buscando...' : 'Buscar'}
         </Button>
       </div>
@@ -64,7 +64,7 @@ function TabBuscarRut() {
                     <td className="mono">{a.patenteCamion}</td>
                     <td className="mono">{a.rutChofer}</td>
                     <td>{a.tipoOperacion}</td>
-                    <td className="mono">{a.idContenedor ?? '—'}</td>
+                    <td className="mono">{a.contenedorId ?? '—'}</td>
                     <td>{fmtFecha(a.horaInicio)}</td>
                     <td>{fmtFecha(a.bloqueFin)}</td>
                     <td>{estadoBadge(a.estadoAgendamiento)}</td>

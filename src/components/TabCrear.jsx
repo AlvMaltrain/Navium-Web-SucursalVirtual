@@ -11,7 +11,7 @@ const formInicial = () => ({
   patenteCamion: '',
   rutChofer:     '',
   tipoOperacion: 'INGRESO_CARGA',
-  idContenedor:  '',
+  contenedorId:  '',
   horaInicio:    '',
 })
 
@@ -78,7 +78,7 @@ function TabCrear() {
         rutChofer:     form.rutChofer.trim(),
         tipoOperacion: form.tipoOperacion,
         horaInicio:    form.horaInicio,
-        ...(form.idContenedor.trim() && { idContenedor: form.idContenedor.trim() }),
+        ...(form.contenedorId.trim() && { contenedorId: Number(form.contenedorId.trim()) }),
       }
       const data = await crearAgendamiento(payload)
       setOk(data)
@@ -167,9 +167,10 @@ function TabCrear() {
           <label className="field-label">ID Contenedor</label>
           <input
             className="field-input"
-            placeholder="CONT-000001"
-            value={form.idContenedor}
-            onChange={set('idContenedor')}
+            type="number"
+            placeholder="Ej: 86"
+            value={form.contenedorId}
+            onChange={set('contenedorId')}
           />
         </div>
 
@@ -186,8 +187,8 @@ function TabCrear() {
       </div>
 
       <div className="form-actions">
-        <Button variant="primary" size="lg" onClick={enviar} disabled={cargando}>
-          {cargando ? 'Creando...' : 'Crear Agendamiento'}
+        <Button variant="primary" size="md" onClick={enviar} disabled={cargando}>
+          {cargando ? 'Creando...' : 'Crear'}
         </Button>
         <Button variant="ghost" onClick={() => { setForm(formInicial); setErrores({}); setOk(null); setServerError('') }}>
           Limpiar

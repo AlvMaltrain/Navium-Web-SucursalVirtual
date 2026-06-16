@@ -42,7 +42,7 @@ function TabConsultaCompleta() {
           onChange={(e) => setPatente(e.target.value.toUpperCase())}
           onKeyDown={handleKey}
         />
-        <Button variant="primary" onClick={buscar} disabled={cargando}>
+        <Button variant="primary" size="sm" onClick={buscar} disabled={cargando}>
           {cargando ? 'Buscando...' : 'Buscar'}
         </Button>
       </div>

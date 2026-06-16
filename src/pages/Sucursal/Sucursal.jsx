@@ -30,7 +30,7 @@ const TABS = [
 // ─── Dashboard ───────────────────────────────────────────────────────────────
 
 function Dashboard({ onLogout }) {
-  const [tab, setTab]         = useState('consulta')
+  const [tab, setTab]         = useState('hoy')
   const [usuario, setUsuario] = useState({ email: '', rol: '' })
 
   useEffect(() => {

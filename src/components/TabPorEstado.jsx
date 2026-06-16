@@ -34,7 +34,7 @@ function TabPorEstado() {
         >
           {ESTADOS.map((e) => <option key={e} value={e}>{ESTADO_LABELS[e]}</option>)}
         </select>
-        <Button variant="secondary" onClick={cargar} disabled={cargando}>
+        <Button variant="secondary" size="sm" onClick={cargar} disabled={cargando}>
           {cargando ? 'Cargando...' : 'Consultar'}
         </Button>
       </div>
@@ -62,7 +62,7 @@ function TabPorEstado() {
                         <td className="mono">{a.patenteCamion}</td>
                         <td className="mono">{a.rutChofer}</td>
                         <td>{a.tipoOperacion}</td>
-                        <td className="mono">{a.idContenedor ?? '—'}</td>
+                        <td className="mono">{a.contenedorId ?? '—'}</td>
                         <td>{fmtFecha(a.bloqueInicio)}</td>
                         <td>{fmtFecha(a.bloqueFin)}</td>
                         <td>{estadoBadge(a.estadoAgendamiento)}</td>

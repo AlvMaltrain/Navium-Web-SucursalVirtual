@@ -39,7 +39,7 @@ function TabConsultaRapida() {
           onChange={(e) => setPatente(e.target.value.toUpperCase())}
           onKeyDown={handleKey}
         />
-        <Button variant="primary" onClick={buscar} disabled={cargando}>
+        <Button variant="primary" size="sm" onClick={buscar} disabled={cargando}>
           {cargando ? 'Buscando...' : 'Buscar'}
         </Button>
       </div>
@@ -63,7 +63,7 @@ function TabConsultaRapida() {
                     <td className="id-cell">#{a.id}</td>
                     <td className="mono">{a.patenteCamion}</td>
                     <td>{a.tipoOperacion}</td>
-                    <td className="mono">{a.idContenedor ?? '—'}</td>
+                    <td className="mono">{a.contenedorId ?? '—'}</td>
                     <td>{fmtFecha(a.horaInicio)}</td>
                     <td>{fmtFecha(a.bloqueFin)}</td>
                     <td>{estadoBadge(a.estadoAgendamiento)}</td>
